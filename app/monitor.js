@@ -67,11 +67,11 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
             }
             },
           );
-        }
+    }
         
     
     
-  }
+  
 
   function rangeToArray(startAt, to) {
     const size = (to - startAt) + 1; // include startAt and to
