@@ -56,6 +56,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           try {
             transactionRaw = await api.getRawTx(tx);
             const parsedTx = await utils.parseTransaction(transactionRaw, tx);
+            console.log("parsedTx",parsedTx);
             if (parsedTx.valid)
                 {
                     console.log("dkmmm");
