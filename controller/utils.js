@@ -1,8 +1,6 @@
-const address = require('./address');
+const addressCtroller = require('./address');
 
-
-
-async function  parseTransaction(transaction, trx) {
+async function  parseTransaction(transaction) {
   // console.log("transaction",transaction);
   try {
     return {
@@ -19,9 +17,9 @@ async function  parseTransaction(transaction, trx) {
       feeAmount: Number(transaction.fee),
       valid: transaction.valid,
       fromAddress:
-        (await address.findByAddress(transaction.sendingaddress)) ,
+        (await addressCtroller.findByAddress(transaction.sendingaddress)) ,
       toAddress:
-        (await address.findByAddress(transaction.referenceaddress)) ,
+        (await addressCtroller.findByAddress(transaction.referenceaddress)) ,
     };
     }catch(err){ console.log("errr",err)};
   }
