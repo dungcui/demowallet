@@ -37,8 +37,8 @@ return { address };
 
 async function findByAddress(address) {
     // const xpub = new HDPublicKey(wallet.xpubs);
-   const address= (await AddressModel.findOne({ address:address }))||null;
-   return address;
+   const addresses= (await AddressModel.findOne({ address:address }))||null;
+   return addresses;
 }
 async function getAllAddress() {
     // const xpub = new HDPublicKey(wallet.xpubs);
