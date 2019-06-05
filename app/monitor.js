@@ -37,7 +37,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
       ]);
     } else {
       // Reach confirmed height, nothing to do
-      await Promise.delay(1000 * this.sleepTime);
+      await Promise.delay(1000 * sleepTime);
     }
   }
 
@@ -47,24 +47,24 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     await Promise.each(
       heights,
       async (height) => {
-        if (!this.isRunning) return;
-        const txs = await this.api.getTxsByHeight(height);
+        // if (!isRunning) return;
+        const txs = await api.getTxsByHeight(height);
         const transactions = [];
 
         await Promise.each(txs, async (tx) => {
           let transactionRaw = null;
           try {
-            transactionRaw = await this.api.getRawTx(tx);
-            const parsedTx = await this.interpreter.parseTransaction(transactionRaw, tx);
+            transactionRaw = await api.getRawTx(tx);
+            const parsedTx = await interpreter.parseTransaction(transactionRaw, tx);
             if (parsedTx.valid) transactions.push(parsedTx);
           } catch (error) {
-            // ư\this.debug("error ",error);
+            // ư\debug("error ",error);
             transactionRaw = null;
           }
         });
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
-          this.nextBlocks.push(nextBlock);
+          nextBlocks.push(nextBlock);
         }
       },
       { concurrency: 5 },
@@ -93,7 +93,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
 async function processRange(fromHeight, toHeight) {
     if (await shouldProcessNextBlock(fromHeight, toHeight)) {
-      const nextBlock = this.nextBlocks.pop();
+      const nextBlock = nextBlocks.pop();
       await processBlock(nextBlock);
       await processRange(nextBlock.height + 1, toHeight);
     }
