@@ -96,6 +96,8 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
   async function processBlock({ height, transactions }) {
       //isRunning = true;
+      console.log(`Process block ${height}`);
+
       const fundings = await buildFundings(transactions);
     //   const balancesHash = buildBalancesHash(fundings);
       await Promise.each(fundings, tx => fundings.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.addressId));

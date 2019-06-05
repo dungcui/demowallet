@@ -3,7 +3,7 @@ const address = require('./address');
 
 
 async function  parseTransaction(transaction, trx) {
-  console.log("transaction",transaction);
+  // console.log("transaction",transaction);
     return {
       transactionHash: transaction.txid,
       from: transaction.sendingaddress,
