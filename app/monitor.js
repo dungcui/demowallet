@@ -33,7 +33,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
       // Fetch and process at the same time
       const nextBlock= await fetchBlock(currentHeight);
     //   console.log(nextBlock);
-      await processBlock(nextBlock);
+    //   await processBlock(nextBlock);
     } else {
       // Reach confirmed height, nothing to do
       await Promise.delay(10 * 10);
