@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const startBlockHeight=579271;
+const startBlockHeight=579277;
 var blockCtroller = require('../controller/block');
 var fundingsCtroller = require('../controller/funding');
 // let isRunning = false;
@@ -27,13 +27,12 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     const latestHeight = await api.getLatestBlockHeight();
     console.log("latestHeight",latestHeight);
     const confirmedHeight = latestHeight - 2;
+    console.log("currentHeight",currentHeight);
 
     if (currentHeight < confirmedHeight) {
       // Fetch and process at the same time
-      await Promise.all([
-        fetchRange(currentHeight + 1, confirmedHeight),
-        processRange(currentHeight + 1, confirmedHeight),
-      ]);
+      const nextBlock= await fetchRange(currentHeight,confirmedHeight);
+      processRange(nextBlock);
     } else {
       // Reach confirmed height, nothing to do
       await Promise.delay(1000 * 10);
@@ -61,13 +60,16 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
             transactionRaw = null;
           }
         });
+        console.log("transactions",transactions);
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
           console.log(nextBlock);
-          nextBlocks.push(nextBlock);
+          return nextBlock;
+
         }
+        
+
       },
-      { concurrency: 5 },
     );
   }
 
@@ -76,25 +78,21 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     return [...Array(size).keys()].map(i => i + startAt);
   }
 
-  async function shouldProcessNextBlock(fromHeight, toHeight) {
-    // Pre-validate
-    if ( fromHeight > toHeight) return false;
+//   async function shouldProcessNextBlock(fromHeight, toHeight) {
+//     // Pre-validate
+//     if ( fromHeight > toHeight) return false;
 
-    // Validate next block
-    const nextBlock = nextBlocks.peek();
-    if (validateBlock(nextBlock, fromHeight, toHeight)) return true;
-    await Promise.delay(1000 * 10);
-    return shouldProcessNextBlock(fromHeight, toHeight);
-  }
+//     // Validate next block
+//     const nextBlock = nextBlocks.peek();
+//     if (validateBlock(nextBlock, fromHeight, toHeight)) return true;
+//     await Promise.delay(1000 * 10);
+//     return shouldProcessNextBlock(fromHeight, toHeight);
+//   }
 
-  async function processRange(fromHeight, toHeight) {
-    if (await shouldProcessNextBlock(fromHeight, toHeight)) {
-      const nextBlock = nextBlocks.pop();
+  async function processRange(nextBlock) {
       console.log(nextBlock);
       await processBlock(nextBlock);
       await processRange(nextBlock.height + 1, toHeight);
-      }
-    
   }
 
   async function processBlock({ height, transactions }) {
