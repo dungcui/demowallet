@@ -40,35 +40,33 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     }
   }
 
-  async function fetchTransactions (txs)
-  {
-        let transactions= [];
-        await Promise.each(txs, async (tx) => {
-        let transactionRaw = null;
-        try {
-          transactionRaw = await api.getRawTx(tx);
-          const parsedTx = await utils.parseTransaction(transactionRaw, tx);
-          if (parsedTx.valid) transactions.push(parsedTx);
-        } catch (error) {
-          // ư\debug("error ",error);
-          transactionRaw = null;
-        }
-      });
-      return transactions;
-
-  }
   async function fetchBlock(height) {  
         // if (!isRunning) return;
-        const txs = await api.getTxsByHeight(height);
-        // const transactions = [];
-        const transactions=await Promise.all(fetchTransactions(txs));
+        let heights=[height];
+        await Promise.each(
+            heights,
+            async (height) => {
+              if (!this.isRunning) return;
+              const txs = await this.api.getTxsByHeight(height);
+              const transactions = [];
       
-        console.log("transactions",transactions);
-        if (transactions.length > 0) {
-          const Block = { hash: transactions[0].blockHash, height, transactions };
-          console.log(Block);
-          return Block;
-
+              await Promise.each(txs, async (tx) => {
+                let transactionRaw = null;
+                try {
+                  transactionRaw = await this.api.getRawTx(tx);
+                  const parsedTx = await this.interpreter.parseTransaction(transactionRaw, tx);
+                  if (parsedTx.valid) transactions.push(parsedTx);
+                } catch (error) {
+                  // ư\this.debug("error ",error);
+                  transactionRaw = null;
+                }
+              });
+              if (transactions.length > 0) {
+                const nextBlock = { hash: transactions[0].blockHash, height, transactions };
+                return nextBlock;
+            }
+            },
+          );
         }
         
     
