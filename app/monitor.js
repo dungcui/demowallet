@@ -55,6 +55,8 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           let transactionRaw = null;
           try {
             transactionRaw = await api.getRawTx(tx);
+            console.log("transactionRaw",transactionRaw);
+
             const parsedTx = await utils.parseTransaction(transactionRaw, tx);
             console.log("parsedTx",parsedTx);
             if (parsedTx.valid)
@@ -67,7 +69,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
             transactionRaw = null;
           }
         });
-        console.log("transactions",transactions);
+        // console.log("transactions",transactions);
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
           nextBlocks.push(nextBlock);
