@@ -98,7 +98,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 async function processRange(fromHeight, toHeight) {
     if (await shouldProcessNextBlock(fromHeight, toHeight)) {
       const nextBlock = nextBlocks.pop();
-      console.log("nextBlock",nextBlock);
+    //   console.log("nextBlock",nextBlock);
       await processBlock(nextBlock);
       await processRange(nextBlock.height + 1, toHeight);
     }
