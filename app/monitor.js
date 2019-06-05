@@ -41,6 +41,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     } else {
       // Reach confirmed height, nothing to do
       await Promise.delay(1000 * sleepTime);
+      await monitorNetwork();
     }
   }
 
