@@ -150,8 +150,15 @@ async function processRange(fromHeight, toHeight) {
     process.on('SIGTERM', () => shutdown());
     process.on('SIGINT', () => shutdown());
   };
+
+  async function run() {
+    while (true) {
+      await this.monitorNetwork();
+    }
+  }
+
   
-  monitorNetwork()
+  run()
     .then(registerSignals)
     .catch((err) => {
       console.log(err);
