@@ -18,7 +18,6 @@ async function find() {
 
 async function Update(height) {
     const found = await find();
-    // console.log(found);
     if(found)
     {
         var Block = new BlockModel({height});
