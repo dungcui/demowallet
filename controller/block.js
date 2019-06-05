@@ -21,15 +21,16 @@ async function Update(height) {
     if(found)
     {
         var Block = new BlockModel({height});
-        await Block.updateOne({ height: height , updatedAt :new Date().toISOString()}).exec(function (err) {
-                if(err) {
-                    // console.log(err);
-                console.log("update fail") ;
-            } else {
-                console.log("updated block !" ,height);
-            }
+        const res=await Block.updateOne({ height: height , updatedAt :new Date().toISOString()});
+            //     if(res) {
+            //         // console.log(err);
+            //     console.log("update fail") ;
+            // } else {
+            //     console.log("updated block !" ,height);
+            // }
         
-        });
+        // });
+        console.log("res",res);
     }else 
     {
         var Block = new BlockModel({height});
