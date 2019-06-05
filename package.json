@@ -13,6 +13,7 @@
     "bitcore-lib": "^8.3.3",
     "dotenv": "^8.0.0",
     "jayson": "^3.0.2",
-    "mongoose": "^5.5.12"
+    "mongoose": "^5.5.12",
+    "tinyqueue": "^2.0.2"
   }
 }

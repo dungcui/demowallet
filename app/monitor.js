@@ -5,6 +5,7 @@ var fundingsCtroller = require('../controller/funding');
 // let isRunning = false;
 var api = require('../controller/api');
 var utils = require('../controller/utils');
+let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
 
   function validateBlock(block, fromHeight, toHeight) {
