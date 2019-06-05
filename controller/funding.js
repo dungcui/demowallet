@@ -12,7 +12,7 @@ async function Save(transactionHash,outputIndex,blockHeight,amount,addressId) {
     await Fund.save(function (err) {
             if(err) {
                 // console.log(err);
-            console.log("Unable to save funding to database") ;
+            console.log("Unable to save funding to database",err) ;
         } else {
             console.log("save funding susscess! block" ,blockHeight, "txHash",transactionHash, "output index :",outputIndex, "amount :",amount);
         }
