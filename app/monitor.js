@@ -63,6 +63,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
         });
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
+          console.log(nextBlock);
           this.nextBlocks.push(nextBlock);
         }
       },
