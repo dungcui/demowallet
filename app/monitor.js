@@ -57,14 +57,14 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
             const parsedTx = await utils.parseTransaction(transactionRaw, tx);
             if (parsedTx.valid) transactions.push(parsedTx);
           } catch (error) {
-            // ư\this.debug("error ",error);
+            // ư\debug("error ",error);
             transactionRaw = null;
           }
         });
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
           console.log(nextBlock);
-          this.nextBlocks.push(nextBlock);
+          nextBlocks.push(nextBlock);
         }
       },
       { concurrency: 5 },
