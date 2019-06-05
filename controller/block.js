@@ -51,4 +51,4 @@ async function getLastedBlock() {
     return block;
 }
 
-module.exports = { Update, Save ,getLastedBlock};
+module.exports = { Update ,getLastedBlock};
