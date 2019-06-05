@@ -153,7 +153,7 @@ async function processRange(fromHeight, toHeight) {
 
   async function run() {
     while (true) {
-      await this.monitorNetwork();
+      await monitorNetwork();
     }
   }
 
