@@ -1,7 +1,7 @@
 const addressCtroller = require('./address');
 
 async function  parseTransaction(transaction) {
-  console.log("transaction", (await addressCtroller.findByAddress(transaction.sendingaddress)));
+  console.log("addressassssssss", (await addressCtroller.findByAddress(transaction.sendingaddress)));
   try {
     return {
       transactionHash: transaction.txid,
