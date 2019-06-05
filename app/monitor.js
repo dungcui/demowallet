@@ -43,7 +43,7 @@ var utils = require('../controller/utils');
     await Promise.each(
       heights,
       async (height) => {
-        if (!isRunning) return;
+        // if (!isRunning) return;
         const txs = await api.getTxsByHeight(height);
         const transactions = [];
 
