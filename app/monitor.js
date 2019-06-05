@@ -68,7 +68,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
             // ư\debug("error ",error);
             transactionRaw = null;
           }
-        });
+        }).catch(err => console.log(err));
         // console.log("transactions",transactions);
         if (transactions.length > 0) {
           const nextBlock = { hash: transactions[0].blockHash, height, transactions };
