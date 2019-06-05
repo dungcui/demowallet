@@ -34,8 +34,8 @@ async function Update(height) {
     console.log(found);
     if(found)
     {
-        var Block = new BlockModel({height});
-        await Block.updateOne({ height: height },function (err) {
+        var Block = new BlockModel({height , updatedAt :Date.now});
+        await Block.updateOne({ height: height , updatedAt :Date.now},function (err) {
                 if(err) {
                     // console.log(err);
                 console.log("update fail") ;

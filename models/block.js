@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Blocks = new Schema ({
     height: { type: Number, required: true },
     createdAt: { type: Date, required: true , default: Date.now},
-    updatedAt: { type: Date, required: true },
+    updatedAt: { type: Date },
 
 });
 
