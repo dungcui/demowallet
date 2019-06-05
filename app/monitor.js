@@ -16,13 +16,15 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
   async function monitorNetwork() {
     // Get height from database
-    const latestProcessedBlock = await blockCtroller.getLastedBlock();
-    
+    // const latestProcessedBlock = await blockCtroller.getLastedBlock();
+    // latestProcessedBlock
     // We set current height to height from db
     // Or from environment if db is blank
-    const currentHeight = latestProcessedBlock
-      ? latestProcessedBlock.height
-      : startBlockHeight - 1;
+    // const currentHeight = latestProcessedBlock
+    //   ? latestProcessedBlock.height
+    //   : startBlockHeight - 1;
+
+    const currentHeight =579285;
     
     const latestHeight = await api.getLatestBlockHeight();
     console.log("latestHeight",latestHeight);
@@ -55,15 +57,9 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           let transactionRaw = null;
           try {
             transactionRaw = await api.getRawTx(tx);
-            console.log("transactionRaw",transactionRaw);
-
             const parsedTx = await utils.parseTransaction(transactionRaw);
-            console.log("parsedTx",parsedTx);
-            if (parsedTx.valid)
-                {
-                    console.log("dkmmm");
-                    transactions.push(parsedTx);
-                } 
+            if (parsedTx.valid)   transactions.push(parsedTx);
+          
           } catch (error) {
             // ư\debug("error ",error);
             transactionRaw = null;
@@ -114,7 +110,7 @@ async function processRange(fromHeight, toHeight) {
       console.log(`Process block ${height}`);
 
       const fundings = await buildFundings(transactions);
-    //   const balancesHash = buildBalancesHash(fundings);
+      console.log(fundings);
       await Promise.each(fundings, tx => fundingsCtroller.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.addressId));
       await blockCtroller.Update( height);
 
