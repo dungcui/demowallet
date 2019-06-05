@@ -17,15 +17,11 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
   async function monitorNetwork() {
     // Get height from database
     const latestProcessedBlock = await blockCtroller.getLastedBlock();
-    // latestProcessedBlock
-    // console.log("latestProcessedBlock",latestProcessedBlock);
-    // We set current height to height from db
-    // Or from environment if db is blank
-    // const currentHeight = latestProcessedBlock
-    //   ? latestProcessedBlock.height
-    //   : startBlockHeight - 1;
+   
+    const currentHeight = latestProcessedBlock
+      ? latestProcessedBlock.height
+      : startBlockHeight - 1;
 
-    const currentHeight =579285;
     
     const latestHeight = await api.getLatestBlockHeight();
     console.log("latestHeight",latestHeight);
@@ -40,8 +36,9 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
       ]);
     } else {
       // Reach confirmed height, nothing to do
+      console.log("waiting")
       await Promise.delay(1000 * 10);
-      console.log("waiting");
+     
     }
   }
 
