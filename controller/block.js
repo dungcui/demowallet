@@ -20,8 +20,8 @@ async function Update(height) {
     const found = await find();
     if(found)
     {
-        var Block = new BlockModel({height});
-        const res=await Block.find({}).update({ height: height });
+        // var Block = new BlockModel({height});
+        const res=await BlockModel.find({}).update({ height: height });
             //     if(res) {
             //         // console.log(err);
             //     console.log("update fail") ;
