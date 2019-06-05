@@ -8,7 +8,6 @@ const Fundings = new Schema ({
     blockHeight: { type: Number, required: true },
     amount: { type: Number, required: true },
     addressId: { type: String, required: true },
-    updatedAt: { type: Date, required: true },
     createdAt: { type: Date, required: true , default: Date.now},
 });
 
