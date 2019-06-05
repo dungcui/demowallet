@@ -42,9 +42,8 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
   async function fetchTransactions (txs)
   {
-        async function f() {
-        let transactions =[]
-
+    async () => {
+        let transactions= [];
         await Promise.each(txs, async (tx) => {
         let transactionRaw = null;
         try {
@@ -56,11 +55,10 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           transactionRaw = null;
         }
       });
+      console.log(transactions);
       return transactions;
-      }
-      
-      f().then(transactions =>console.log(transactions));
-      
+
+    }
 
   }
   async function fetchBlock(height) {  
