@@ -109,7 +109,7 @@ async function processRange(fromHeight, toHeight) {
       console.log(`Process block ${height}`);
       const fundings = await buildFundings(transactions);
       console.log(fundings);
-      await Promise.each(fundings, tx => fundingsCtroller.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.toAddress.id));
+      await Promise.each(fundings, tx => fundingsCtroller.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.toAddress._id));
       await blockCtroller.Update( height);
 
   }
