@@ -21,17 +21,40 @@ async function Save(height) {
   
 };
 
+
+async function find() {
+    // const xpub = new HDPublicKey(wallet.xpubs);
+    const block = await BlockModel.findOne({});
+    return block;
+
+}
+
 async function Update(height) {
-    var Block = new BlockModel({height});
-    await Block.updateOne({ height: height },function (err) {
+    const found = find();
+    if(found)
+    {
+        var Block = new BlockModel({height});
+        await Block.updateOne({ height: height },function (err) {
+                if(err) {
+                    // console.log(err);
+                console.log("update fail") ;
+            } else {
+                console.log("updated block !" ,height);
+            }
+        
+        });
+    }else 
+    {
+        var Block = new BlockModel({height});
+        await Block.save(function (err) {
             if(err) {
-                // console.log(err);
-            console.log("update fail") ;
+            console.log("Unable to save block to database") ;
         } else {
             console.log("updated block !" ,height);
         }
     
     });
+    }
   
 };
 
