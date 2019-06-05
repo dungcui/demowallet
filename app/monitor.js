@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const startBlockHeight=579271;
 var blockCtroller = require('../controller/block');
 var fundingsCtroller = require('../controller/funding');
-let isRunning = false;
+// let isRunning = false;
 var api = require('../controller/api');
 var utils = require('../controller/utils');
 
@@ -74,7 +74,7 @@ var utils = require('../controller/utils');
 
   async function shouldProcessNextBlock(fromHeight, toHeight) {
     // Pre-validate
-    if (!isRunning || fromHeight > toHeight) return false;
+    if ( fromHeight > toHeight) return false;
 
     // Validate next block
     const nextBlock = nextBlocks.peek();
@@ -92,7 +92,7 @@ var utils = require('../controller/utils');
   }
 
   async function processBlock({ height, transactions }) {
-      isRunning = true;
+      //isRunning = true;
       const fundings = await buildFundings(transactions);
     //   const balancesHash = buildBalancesHash(fundings);
       await Promise.each(fundings, tx => fundings.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.addressId));
