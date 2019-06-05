@@ -16,8 +16,9 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
   async function monitorNetwork() {
     // Get height from database
-    // const latestProcessedBlock = await blockCtroller.getLastedBlock();
+    const latestProcessedBlock = await blockCtroller.getLastedBlock();
     // latestProcessedBlock
+    console.log("latestProcessedBlock",latestProcessedBlock);
     // We set current height to height from db
     // Or from environment if db is blank
     // const currentHeight = latestProcessedBlock
