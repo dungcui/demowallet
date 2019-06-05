@@ -7,19 +7,6 @@ const BlockModel = require('../models/block');
 
 
 
-async function Save(height) {
-    var Block = new BlockModel({height});
-    await Block.save(function (err) {
-            if(err) {
-                // console.log(err);
-            console.log("Unable to save address to database") ;
-        } else {
-            console.log("save address susscess!" ,address, "with path",path);
-        }
-    
-    });
-  
-};
 
 
 async function find() {
@@ -31,7 +18,7 @@ async function find() {
 
 async function Update(height) {
     const found = await find();
-    console.log(found);
+    // console.log(found);
     if(found)
     {
         var Block = new BlockModel({height});
