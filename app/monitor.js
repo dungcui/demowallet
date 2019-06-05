@@ -31,19 +31,16 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
     if (currentHeight < confirmedHeight) {
       // Fetch and process at the same time
-      const nextBlock= await fetchRange(currentHeight,confirmedHeight);
-      processRange(nextBlock);
+      const nextBlock= await fetchBlock(currentHeight);
+    //   await processBlock(nextBlock);
     } else {
       // Reach confirmed height, nothing to do
-      await Promise.delay(1000 * 10);
+      await Promise.delay(10 * 10);
     }
   }
 
-  async function fetchRange(fromHeight, toHeight) {
-    if (fromHeight > toHeight) return;
-    const heights = rangeToArray(fromHeight, toHeight);
-    await Promise.each(
-      heights,
+  async function fetchBlock(height) {
+   
       async (height) => {
         // if (!isRunning) return;
         const txs = await api.getTxsByHeight(height);
@@ -62,15 +59,14 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
         });
         console.log("transactions",transactions);
         if (transactions.length > 0) {
-          const nextBlock = { hash: transactions[0].blockHash, height, transactions };
-          console.log(nextBlock);
-          return nextBlock;
+          const Block = { hash: transactions[0].blockHash, height, transactions };
+          console.log(Block);
+          return Block;
 
         }
-        
-
-      },
-    );
+        }
+    
+    
   }
 
   function rangeToArray(startAt, to) {
