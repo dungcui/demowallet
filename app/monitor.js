@@ -40,24 +40,28 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     }
   }
 
-  async function fetchBlock(height) {
-   console.log("aaaaa");
-      
+  async function fetchTransactions (txs,transactions)
+  {
+        await Promise.each(txs, async (tx) => {
+        let transactionRaw = null;
+        try {
+          transactionRaw = await api.getRawTx(tx);
+          const parsedTx = await utils.parseTransaction(transactionRaw, tx);
+          if (parsedTx.valid) transactions.push(parsedTx);
+        } catch (error) {
+          // ư\debug("error ",error);
+          transactionRaw = null;
+        }
+      });
+
+
+  }
+  async function fetchBlock(height) {  
         // if (!isRunning) return;
         const txs = await api.getTxsByHeight(height);
         const transactions = [];
-
-        await Promise.each(txs, async (tx) => {
-          let transactionRaw = null;
-          try {
-            transactionRaw = await api.getRawTx(tx);
-            const parsedTx = await utils.parseTransaction(transactionRaw, tx);
-            if (parsedTx.valid) transactions.push(parsedTx);
-          } catch (error) {
-            // ư\debug("error ",error);
-            transactionRaw = null;
-          }
-        });
+        await fetchTransactions(txs,transactions);
+      
         console.log("transactions",transactions);
         if (transactions.length > 0) {
           const Block = { hash: transactions[0].blockHash, height, transactions };
