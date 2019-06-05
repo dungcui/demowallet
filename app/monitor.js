@@ -55,7 +55,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           let transactionRaw = null;
           try {
             transactionRaw = await api.getRawTx(tx);
-            const parsedTx = await interpreter.parseTransaction(transactionRaw, tx);
+            const parsedTx = await utils.parseTransaction(transactionRaw, tx);
             if (parsedTx.valid) transactions.push(parsedTx);
           } catch (error) {
             // ư\debug("error ",error);
