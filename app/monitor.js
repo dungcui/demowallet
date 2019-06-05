@@ -87,10 +87,12 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
   }
 
   async function processRange(fromHeight, toHeight) {
-    // if (await shouldProcessNextBlock(fromHeight, toHeight)) {
+    if (await shouldProcessNextBlock(fromHeight, toHeight)) {
       const nextBlock = nextBlocks.pop();
+      console.log(nextBlock);
       await processBlock(nextBlock);
       await processRange(nextBlock.height + 1, toHeight);
+      }
     
   }
 
@@ -100,7 +102,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
 
       const fundings = await buildFundings(transactions);
     //   const balancesHash = buildBalancesHash(fundings);
-      await Promise.each(fundings, tx => fundings.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.addressId));
+      await Promise.each(fundings, tx => fundingsCtroller.Save(tx.transactionHash,tx.outputIndex,tx.blockHeight,tx.amount,tx.addressId));
       await blockCtroller.Update( height);
 
   }
