@@ -31,6 +31,7 @@ async function find() {
 
 async function Update(height) {
     const found = find();
+    console.log(found);
     if(found)
     {
         var Block = new BlockModel({height});
@@ -50,7 +51,7 @@ async function Update(height) {
             if(err) {
             console.log("Unable to save block to database") ;
         } else {
-            console.log("updated block !" ,height);
+            console.log("saved block !" ,height);
         }
     
     });
