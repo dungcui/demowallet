@@ -17,13 +17,14 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
   async function monitorNetwork() {
     // Get height from database
     const latestProcessedBlock = await blockCtroller.getLastedBlock();
-   
+    console.log(latestProcessedBlock);
+    // console.log(latestProcessedBlock.height);
     const currentHeight = latestProcessedBlock
       ? latestProcessedBlock.height
       : startBlockHeight - 1;
 
     
-      
+
     const latestHeight = await api.getLatestBlockHeight();
     console.log("latestHeight",latestHeight);
     const confirmedHeight = latestHeight - 2;
