@@ -23,6 +23,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
       : startBlockHeight - 1;
 
     
+      
     const latestHeight = await api.getLatestBlockHeight();
     console.log("latestHeight",latestHeight);
     const confirmedHeight = latestHeight - 2;
