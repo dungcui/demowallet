@@ -2,6 +2,8 @@
 
 # install nodejs and docker :
 
+# install dependencies : npm install
+
 #migration db mongodb:
 
 docker pull mongo:4.0.4

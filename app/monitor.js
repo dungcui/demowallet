@@ -67,6 +67,11 @@ var utils = require('../controller/utils');
     );
   }
 
+  function rangeToArray(startAt, to) {
+    const size = (to - startAt) + 1; // include startAt and to
+    return [...Array(size).keys()].map(i => i + startAt);
+  }
+  
   async function shouldProcessNextBlock(fromHeight, toHeight) {
     // Pre-validate
     if (!isRunning || fromHeight > toHeight) return false;
