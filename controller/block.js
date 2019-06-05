@@ -30,7 +30,7 @@ async function find() {
 }
 
 async function Update(height) {
-    const found = find();
+    const found = await find();
     console.log(found);
     if(found)
     {
