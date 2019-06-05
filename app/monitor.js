@@ -1,5 +1,5 @@
 const Promise = require('bluebird');
-const startBlockHeight=579277;
+const startBlockHeight=579285;
 var blockCtroller = require('../controller/block');
 var fundingsCtroller = require('../controller/funding');
 // let isRunning = false;
