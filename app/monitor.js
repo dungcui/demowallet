@@ -54,6 +54,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           transactionRaw = null;
         }
       });
+      console.log(transactions);
       return transactions;
 
   }
