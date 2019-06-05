@@ -40,8 +40,8 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
   }
 
   async function fetchBlock(height) {
-   
-      async () => {
+   console.log("aaaaa");
+      
         // if (!isRunning) return;
         const txs = await api.getTxsByHeight(height);
         const transactions = [];
@@ -64,7 +64,7 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
           return Block;
 
         }
-        }
+        
     
     
   }
