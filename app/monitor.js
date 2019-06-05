@@ -29,8 +29,6 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
     const confirmedHeight = latestHeight - 2;
     console.log("currentHeight",currentHeight);
 
-    const confirmedHeight = latestHeight - this.minimumConfirmation;
-    console.log('current height:', confirmedHeight);
     if (currentHeight < confirmedHeight) {
       // Fetch and process at the same time
       await Promise.all([
