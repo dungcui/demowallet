@@ -15,10 +15,9 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
   }
 
   async function monitorNetwork() {
-    // Get height from database
+
     const latestProcessedBlock = await blockCtroller.getLastedBlock();
-    console.log(latestProcessedBlock);
-    // console.log(latestProcessedBlock.height);
+
     const currentHeight = latestProcessedBlock
       ? latestProcessedBlock.height
       : startBlockHeight - 1;
@@ -38,7 +37,6 @@ let nextBlocks = new TinyQueue([], (a, b) => a.height - b.height);
       ]);
     } else {
       // Reach confirmed height, nothing to do
-      console.log("waiting")
       await Promise.delay(1000 * 10);
      
     }

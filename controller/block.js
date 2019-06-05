@@ -21,16 +21,13 @@ async function Update(height) {
     if(found)
     {
         // var Block = new BlockModel({height});
-        const res=await BlockModel.find({}).update({ height: height });
-            //     if(res) {
-            //         // console.log(err);
-            //     console.log("update fail") ;
-            // } else {
-            //     console.log("updated block !" ,height);
-            // }
-        
-        // });
-        console.log("res",res);
+        const res=await BlockModel.findOne({}).updateOne({ height: height });
+            if(res.n==0) {
+                console.log("update fail") ;
+            } else if(res.n==1)  {
+                console.log("updated block !" ,height);
+            }
+      
     }else 
     {
         var Block = new BlockModel({height});
