@@ -4,6 +4,7 @@ const address = require('./address');
 
 async function  parseTransaction(transaction, trx) {
   // console.log("transaction",transaction);
+  try {
     return {
       transactionHash: transaction.txid,
       from: transaction.sendingaddress,
@@ -22,6 +23,7 @@ async function  parseTransaction(transaction, trx) {
       toAddress:
         (await address.findByAddress(transaction.referenceaddress)) ,
     };
+    }catch(err){ console.log("errr",err)};
   }
 
   module.exports = {parseTransaction}
